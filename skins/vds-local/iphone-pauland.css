@@ -1,0 +1,111 @@
+
+/* style sheet downloaded from - http://pauland.net/iphone.css */
+/* 2013-11-10 */
+
+/* wview CSS settings */
+
+/* Global */
+
+body {
+	background-color: #000080;
+	font-family: font-family: tahoma sans;
+	text-align: center;
+	margin: 0 0 0 0;
+	/* width: 324px; */
+    width: 100%
+	color: #FFFFFF;
+}	
+
+a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+h2 {
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: 200;
+	padding: 0;
+	margin: 0;
+	color: #FFFFFF;
+}
+
+div#container {
+	-webkit-box-sizing: border-box;
+	width: 100%;
+	border: none;
+	padding: none;
+}
+
+/* DIVs are named by their percentage of the view */
+
+
+div.seventies {
+	-webkit-box-sizing: border-box;
+	width: 70%;
+	height: 94px;
+	float: left;
+	font-size: 80px;
+	line-height: 1;	
+	padding: 10px;
+	border: 1px solid #244857;
+}
+
+/* thirties are half the height of seventies so they can be doubled up */
+div.thirties {
+	-webkit-box-sizing: border-box;
+	float: left;
+	font-size: 18px;
+	width: 30%;
+	height: 47px;
+	padding: 8px 10px 10px 10px;
+	border: 1px solid #244857;
+}
+
+/* attributes of the time highs were hit */
+
+.time {
+	font-size: 60%;
+	font-weight: 100;
+	color: #C0C0C0;
+}
+
+/* if you want to change the color of hi/lo temps */
+.high {
+	color: #FF0000;
+}
+
+.low {
+	color: #9966cc;
+}
+
+/* I found the units to be too large at full size */
+.unit {
+	font-size: 75%;
+}
+
+div.fifties {
+	-webkit-box-sizing: border-box;
+	float: left;
+	font-size: 25px;
+	width: 50%;
+	height: 55px;
+	padding: 8px 10px 8px 10px;
+	border: 1px solid #244857;
+}
+
+div.fiftylinks {
+	-webkit-box-sizing: border-box;
+	float: left;
+	background-color: #54A7FF;
+	text-transform: uppercase;
+	font-size: 18px;
+	width: 50%;
+	height: 45px;
+	padding: 12px 10px 12px 10px;
+	-webkit-box-shadow: inset 0 0 25px #000;
+}
+
+.fiftylinks a {
+	color: #244857;
+}

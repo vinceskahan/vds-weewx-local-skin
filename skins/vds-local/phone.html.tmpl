@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- template based on http://pauland.net/phone.html -->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>$station.location Weather</title>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;"/>
+<style type="text/css" media="screen">@import "iphone-pauland.css";</style>
+</head>
+
+<body onload="setTimeout(function() { window.scrollTo(0, 1) }, 100);">
+	<div id="container">
+		<div class="seventies">
+			<a href="daytempdew.png">
+				<h2>
+					$current.dateTime
+				</h2>
+				$current.outTemp.formatted&#176;
+			</a>
+		</div>
+		<div class="thirties">
+			<h2>
+				HIGH
+			</h2>
+			<a href="daytempdew.png">
+				<span class="high">
+					$day.outTemp.max.formatted&#176;
+				</span>
+				<span class="time">
+					$day.outTemp.maxtime.format("%H:%M")
+				</span>
+			</a>
+		</div>
+		<div class="thirties">
+			<h2>
+				LOW
+			</h2>
+			<a href="daytempdew.png">
+				<span class="low">
+					$day.outTemp.min.formatted&#176;
+				</span>
+				<span class="time">
+					$day.outTemp.mintime.format("%H:%M")
+				</span>
+			</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				HEAT INDEX
+			</h2>
+			<a href="daytempchill.png">
+				$current.heatindex.formatted&#176;
+			</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				WIND CHILL
+			</h2>
+			<a href="daytempchill.png">
+				$current.windchill.formatted&#176;
+			</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				HIGH HEAT INDEX
+			</h2>
+			<a href="daytempchill.png">
+				$day.heatindex.max.formatted&#176;
+			<span class="time">
+				$day.heatindex.maxtime.format("%H:%M")
+			</span>
+			</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				LOW WIND CHILL
+			</h2>
+			<a href="daytempchill.png">
+				$day.windchill.min.formatted&#176;
+			<span class="time">
+				$day.windchill.mintime.format("%H:%M")
+			</span>
+			</a>
+		</div>
+		<div class="fifties">
+		<h2>
+			INDOOR TEMP
+		</h2>
+		<a href="dayinside.png">
+			$current.inTemp.formatted&#176;
+		</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				HUMIDITY
+			</h2>
+			<a>
+		  $current.outHumidity
+			</a>
+			<span class="unit">
+			</span>
+		</div>
+
+		<div class="fifties">
+			<h2>
+				RAINFALL
+			</h2>
+			<a href="dayrain.png">
+		  	$day.rain.sum.formatted
+				<span class="unit">
+					 in
+				</span>
+			</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				HIGH RAIN RATE
+			</h2>
+			<a href="dayrain.png">
+	    	$day.rainRate.max.formatted
+				<span class="unit">
+					 in/hr
+				</span>
+	    	<span class="time">
+					$day.rainRate.maxtime.format("%H:%M")
+				</span>
+			</a>
+		</div>		
+		<div class="fifties">
+			<h2>
+				WIND
+			</h2>
+			<a href="daywinddir.png">
+	    	$current.windDir.ordinal_compass
+	    	$current.windSpeed.formatted
+				<span class="unit">
+					 mph
+				</span>
+			</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				HIGH WIND
+			</h2>
+	    <a href="daywind.png">
+				$day.wind.max.formatted
+				<span class="unit">
+					 mph
+				</span>
+	    	<span class="time">
+					$day.wind.maxtime.format("%H:%M")
+				</span>
+			</a>
+		</div>
+		<div class="fiftylinks">
+			<a href="http://radar.weather.gov/ridge/lite/N0R/ATX_loop.gif">
+					RADAR
+			</a>
+		</div>
+		<div class="fiftylinks">
+			<a href="/weewx/forecast/">
+					FORECAST
+			</a>
+		</div>
+	</div>
+</body>
+</html>
+
