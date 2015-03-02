@@ -1,0 +1,126 @@
+#errorCatcher Echo
+##    $Revision: 735 $
+##    $Author: tkeffer $
+##    $Date: 2012-11-03 18:48:56 -0700 (Sat, 03 Nov 2012) $
+#encoding UTF-8
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head profile="http://www.w3.org/2005/10/profile">
+    #if $encoding == 'utf8'
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    #end if    
+    <title>$station.location Alltime Records</title>
+    <link rel="stylesheet" type="text/css" href="alltime.css"/>
+    <link rel="icon" type="image/png" href="favicon.ico" />
+    <script type="text/javascript">
+      function openURL(urlname)
+      {
+        window.location=urlname;
+      }
+      function openNoaaFile(date)
+      {
+        var url = "NOAA/NOAA-";
+        url = url + date;
+        url = url + ".txt";
+        window.location=url;
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="masthead">
+        <h1>$station.location</h1>
+        <h2>Alltime Records</h2>
+          <h3>as of $current.dateTime</h3>
+      </div>
+
+      <div id="stats_group">
+
+        <div class="stats">
+          <div class="stats_header">
+            Alltime Records
+          </div>
+
+          <table>
+            <tbody>
+              <tr>
+                <td class="stats_label"> Outside Temperature </td>
+                <td class="stats_data"> $alltime.outTemp.max <br> ($alltime.outTemp.maxtime) </td>
+                <td class="stats_data"> $alltime.outTemp.min <br> ($alltime.outTemp.mintime) </td>
+              </tr>
+              <tr>
+                <td class="stats_label"> Heat Index / Wind Chill </td>
+                <td class="stats_data"> $alltime.heatindex.max <br> ($alltime.heatindex.maxtime) </td>
+                <td class="stats_data"> $alltime.windchill.min <br> ($alltime.windchill.mintime) </td>
+              </tr>
+              <tr>
+                <td class="stats_label">Dewpoint</td>
+                <td class="stats_data"> $alltime.dewpoint.max <br> ($alltime.dewpoint.maxtime) </td>
+                <td class="stats_data"> $alltime.dewpoint.min <br> ($alltime.dewpoint.mintime) </td>
+              </tr>
+              <tr>
+                <td class="stats_label">Humidity</td>
+                <td class="stats_data"> $alltime.outHumidity.max <br> ($alltime.outHumidity.maxtime) </td>
+                <td class="stats_data"> $alltime.outHumidity.min <br> ($alltime.outHumidity.mintime) </td>
+              </tr>
+              <tr>
+                <td class="stats_label">Barometer</td>
+                <td class="stats_data"> $alltime.barometer.max <br> ($alltime.barometer.maxtime) </td>
+                <td class="stats_data"> $alltime.barometer.min <br> ($alltime.barometer.mintime) </td>
+              </tr>
+              <tr>
+                <td class="stats_label">Wind</td>
+                <td class="stats_data">$alltime.wind.max from $alltime.wind.gustdir<br> ($alltime.wind.maxtime)</td>
+              </tr>
+              <tr>
+                <td class="stats_label">Daily Rain</td>
+                <td class="stats_data">$alltime.rain.maxsum<br> ($alltime.rain.maxtime)</td>
+              </tr>
+              <tr>
+                <td class="stats_label">Rain Rate</td>
+                <td class="stats_data"> $alltime.rainRate.max <br> ($alltime.rainRate.maxtime) </td>
+              </tr>
+              <tr>
+                <td class="stats_label"> Inside Temperature </td>
+                <td class="stats_data"> $alltime.inTemp.max <br> ($alltime.inTemp.maxtime) </td>
+                <td class="stats_data"> $alltime.inTemp.min <br> ($alltime.inTemp.mintime) </td>
+              </tr>
+              #if $day.extraTemp1.has_data
+              <tr>
+                <td class="stats_label">Pond Temperature</td>
+                <td class="stats_data"> $alltime.extraTemp1.max <br> ($alltime.extraTemp1.maxtime) </td>
+                <td class="stats_data"> $alltime.extraTemp1.min <br> ($alltime.extraTemp1.mintime) </td>
+              </tr>
+              #end if
+              #if $day.UV.has_data
+              <tr>
+                <td class="stats_label">UV</td>
+                <td class="stats_data"> $alltime.UV.max <br> ($alltime.UV.maxtime) </td>
+              </tr>
+              #end if
+              #if $day.ET.has_data and $day.ET.sum.raw > 0.0
+              <tr>
+                <td class="stats_label">ET</td>
+                <td class="stats_data"> $alltime.ET.max <br> ($alltime.ET.maxtime) </td>
+                <td class="stats_data"> $alltime.ET.min <br> ($alltime.ET.mintime) </td>
+              </tr>
+              #end if
+              #if $day.radiation.has_data
+              <tr>
+                <td class="stats_label">Solar Radiation</td>
+                <td class="stats_data"> $alltime.radiation.max <br> ($alltime.radiation.maxtime) </td>
+                <td class="stats_data"> $alltime.radiation.min <br> ($alltime.radiation.mintime) </td>
+              </tr>
+              #end if
+            </tbody>
+          </table>
+        </div>
+
+        <p>&nbsp;</p>
+
+      </div> <!--End class "stats_group" -->
+
+</body>
+
+</html>

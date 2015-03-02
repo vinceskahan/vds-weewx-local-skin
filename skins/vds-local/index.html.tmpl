@@ -28,9 +28,13 @@
     <script src="gauge.js"></script>
     <script src="RGraph/libraries/RGraph.common.core.js" ></script>
     <script src="RGraph/libraries/RGraph.bar.js" ></script>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
   </head>
 
   <body>
+
     <div id="container">
       <div id="masthead">
         <h1>$station.location</h1>
@@ -338,10 +342,12 @@
               <td class="label">Server uptime:</td>
               <td class="data">$station.os_uptime</td>
             </tr>
-            <!-- <tr>
+<!-- we don't run this now
+            <tr>
               <td class="label">Performance Graphs</td>
               <td class="data"><a href="/weewx/cmon">here</a></td>
-            </tr> -->
+            </tr>
+-->
           <tr>
              <td class="label">Timelapse Movies</td>
              <td class="data"><a href="/timelapse">here</a></td>
@@ -409,6 +415,7 @@
         <input type="button" value="    Phone     " onclick="openURL('phone.html')" />
         <input type="button" value="   Bootstrap  " onclick="openURL('bootstrap/')" />
         <input type="button" value=" Memory Usage " onclick="openURL('mem/')" />
+        <input type="button" value="    Alltime   " onclick="openURL('alltime.html')" />
         <p>Monthly summary:&nbsp;
         <select NAME=noaaselect onchange="openNoaaFile(value)">
         #for $monthYear in $SummaryByMonth
@@ -450,8 +457,12 @@
           #end if
 -->
           <img src="daySensorStatus.png"      alt="Sensor Status" />
+<!-- superseded by mem extension
           <img src="dayMem.png"      alt="Memory" />
+-->
+<!-- not updated to v3
           <img src="dayLoad.png"      alt="Load" />
+-->
         </div> <!-- End id "plots" -->
 
       </div> <!--End class "stats_group" -->

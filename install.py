@@ -9,7 +9,7 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="0.1",
+            version="0.2",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
@@ -36,6 +36,8 @@ class MySkinInstaller(ExtensionInstaller):
                         'skins/vds-local/weewx.css',
                         'skins/vds-local/year.html.tmpl',
                         'skins/vds-local/gauge.js',
+                        'skins/vds-local/alltime.html.tmpl',
+                        'skins/vds-local/alltime.css',
                     ],
                  ),
 
