@@ -1,24 +1,23 @@
 
 #
-# pi.py - Tom's v2 memory add-on and Matthew's v3 pmon extension
+# pi.py - Tom's memory add-on and Matthew's v3 pmon extension
 #          combined into a Franken-extension by Vince
+#          that reads json-formatted data stashed on the pi
+#          via its webserver, and uses that as data for weewx
 #
-#    vinceskahan@gmail.com - 2014-1128 - original
+#    vinceskahan@gmail.com - 2015-0306 - original
 #
+#---------------------------
 #
-# note: Copyright from the originals removed so any blame below
-#        goes to me, but of course 99.99% of the credit goes to them.
+# (copyright for the original pmon this is based on)
+#
+# weewx v# $Id: mem.py 2692 2014-11-25 01:07:48Z mwall $
+# Copyright 2013 Matthew Wall
 #
 #---------------------------
 
 
-"""weewx module that records remote Pi temperatures
-
- This reads a JSON-formatted record from a remote_url
- and loads a 'pi.sdb' sqlite3 database.
-
- The schema can of course be altered to taste, but
- remember to change the 'meat' of the program
+"""weewx module that records memory information.
 
 Installation
 ============
@@ -31,8 +30,9 @@ Configuration
 Add the following to weewx.conf:
 
 [PiMonitor]
+    process = weewxd
     data_binding = pi_binding
-    remote_url = http://my.example.com/test.json
+    remote_url = "http://here.example.com/somepage.json"
 
 [DataBindings]
     [[pi_binding]]
@@ -55,7 +55,6 @@ Add the following to weewx.conf:
 import os
 import platform
 import re
-import sys
 import syslog
 import time
 from subprocess import Popen, PIPE
@@ -101,7 +100,8 @@ class PiMonitor(StdService):
         self.process = d.get('process', 'weewxd')
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
-        self.remote_url = d.get('remote_url', 'http://localhost/test.json')
+	# get the remote_url from weewx.conf, defaulting to a sane default
+	self.remote_url = d.get('remote_url', 'http://localhost/test.json')
 
         # get the database parameters we need to function
         binding = d.get('data_binding', 'pi_binding')
@@ -155,11 +155,11 @@ class PiMonitor(StdService):
 
     def get_data(self, now_ts, last_ts):
         record = {}
-        record['usUnits'] = weewx.METRIC
+        record['usUnits'] = weewx.US
         record['interval'] = int((now_ts - last_ts) / 60)
 
         try:
-            request = urllib2.Request(self.remote_url)
+            request = urllib2.Request(remote_url)
             response = urllib2.urlopen(request)
             the_page = response.read()
         except (Error), e:
@@ -192,9 +192,8 @@ if __name__=="__main__":
         'Simulator': {
             'driver': 'weewx.drivers.simulator',
             'mode': 'simulator'},
-        'PiMonitor': {
-            'binding': 'pi_binding',
-            'remote_url': 'http://localhost/t.json'},
+        'ComputerMonitor': {
+            'binding': 'pi_binding'},
         'DataBindings': {
             'pi_binding': {
                 'database': 'pi_sqlite',
