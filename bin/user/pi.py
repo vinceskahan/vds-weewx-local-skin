@@ -1,6 +1,6 @@
 
 #
-# pi.py - Tom's memory add-on and Matthew's v3 pmon extension
+# pi.py - Tom's v2 memory add-on and Matthew's v3 pmon extension
 #          combined into a Franken-extension by Vince
 #          that reads json-formatted data stashed on the pi
 #          via its webserver, and uses that as data for weewx
@@ -9,15 +9,20 @@
 #
 #---------------------------
 #
-# (copyright for the original pmon this is based on)
-#
-# weewx v# $Id: mem.py 2692 2014-11-25 01:07:48Z mwall $
-# Copyright 2013 Matthew Wall
+# note: Copyright from the originals removed so any blame below
+#        goes to me, but of course 99.99% of the credit goes to them.
 #
 #---------------------------
+ 
+ 
+"""weewx module that records remote Pi temperatures
 
+ This reads a JSON-formatted record from a remote_url
+ and loads a 'pi.sdb' sqlite3 database.
 
-"""weewx module that records memory information.
+ The schema can of course be altered to taste, but
+ remember to change the 'meat' of the program as well
+
 
 Installation
 ============
