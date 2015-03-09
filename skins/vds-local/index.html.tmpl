@@ -62,6 +62,10 @@
                 <td class="stats_data">$current.outTemp</td>
               </tr>
               <tr>
+                <td class="stats_label">Baseball Room Temp</td>
+                <td class="stats_data">$latest($data_binding='pi_binding').extraTemp1</td>
+              </tr>
+              <tr>
                 <td class="stats_label">Wind Chill</td>
                 <td class="stats_data">$current.windchill</td>
               </tr>
@@ -437,6 +441,7 @@
  
         <div id="plots">
           <img src="daytempdew.png"   alt="temperatures" />
+          <img src="dayBaseball.png"  alt="baseball" />
           <img src="daytempchill.png" alt="heatchill" />
           <img src="dayrain.png"      alt="rain" />
           <img src="daywind.png"      alt="wind" />

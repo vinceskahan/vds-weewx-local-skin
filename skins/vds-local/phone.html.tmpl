@@ -46,6 +46,40 @@
 				</span>
 			</a>
 		</div>
+		<div class="seventies">
+			<a href="dayBaseball.png">
+				<h2>
+					BASEBALL ROOM
+				</h2>
+				$latest($data_binding='pi_binding').extraTemp1.formatted&#176;
+			</a>
+		</div>
+		<div class="thirties">
+			<h2>
+				HIGH
+			</h2>
+			<a href="dayBaseball.png">
+				<span class="high">
+					$day($data_binding='pi_binding').extraTemp1.max.formatted&#176;
+				</span>
+				<span class="time">
+					$day($data_binding='pi_binding').extraTemp1.maxtime.format("%H:%M")
+				</span>
+			</a>
+		</div>
+		<div class="thirties">
+			<h2>
+				LOW
+			</h2>
+			<a href="daytempdew.png">
+				<span class="low">
+					$day($data_binding='pi_binding').extraTemp1.min.formatted&#176;
+				</span>
+				<span class="time">
+					$day($data_binding='pi_binding').extraTemp1.mintime.format("%H:%M")
+				</span>
+			</a>
+		</div>
 		<div class="fifties">
 			<h2>
 				HEAT INDEX
