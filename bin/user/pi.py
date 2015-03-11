@@ -1,6 +1,6 @@
 
 #
-# pi.py - Tom's v2 memory add-on and Matthew's v3 pmon extension
+# pi.py - Tom's memory add-on and Matthew's v3 pmon extension
 #          combined into a Franken-extension by Vince
 #          that reads json-formatted data stashed on the pi
 #          via its webserver, and uses that as data for weewx
@@ -9,12 +9,13 @@
 #
 #---------------------------
 #
-# note: Copyright from the originals removed so any blame below
-#        goes to me, but of course 99.99% of the credit goes to them.
+# (copyright for the original pmon this is based on)
+#
+# weewx v# $Id: mem.py 2692 2014-11-25 01:07:48Z mwall $
+# Copyright 2013 Matthew Wall
 #
 #---------------------------
- 
- 
+
 """weewx module that records remote Pi temperatures
 
  This reads a JSON-formatted record from a remote_url
@@ -71,9 +72,12 @@ from weewx.engine import StdService
 
 import logging
 import json
-import urllib2
+from urllib2 import Request, urlopen, URLError
 
-VERSION = "0.2"
+#url="http://localhost/t.json"   # should be in config file
+###url="http://r/t.json"   # should be in config file
+
+VERSION = "0.1"
 
 def logmsg(level, msg):
     syslog.syslog(level, 'pi: %s' % msg)
@@ -106,7 +110,9 @@ class PiMonitor(StdService):
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
 	# get the remote_url from weewx.conf, defaulting to a sane default
-	self.remote_url = d.get('remote_url', 'http://localhost/test.json')
+	# it seems that this does not work or it doesn't work in __main__ test mode
+	#self.remote_url = d.get('remote_url', 'http://localhost/test.json')
+	self.remote_url = d.get('remote_url', 'http://r/t.json')
 
         # get the database parameters we need to function
         binding = d.get('data_binding', 'pi_binding')
@@ -160,17 +166,23 @@ class PiMonitor(StdService):
 
     def get_data(self, now_ts, last_ts):
         record = {}
+        record['dateTime'] = time.time()     # will supersede later
+        record['usUnits'] = weewx.METRIC
         record['usUnits'] = weewx.US
         record['interval'] = int((now_ts - last_ts) / 60)
 
+	# handler from docs.python.org/2/howto/urllib2.html
         try:
-            request = urllib2.Request(remote_url)
-            response = urllib2.urlopen(request)
-            the_page = response.read()
-        except (Error), e:
-            logerr('pi_info url read failed: %s' % e)
+            request = Request(self.remote_url)
+            response = urlopen(request)
+        except URLError as e:
+            logerr('pi_info URLError: %s' % e)
+            return
+	except Exception as e:
+            logerr('pi_info Exception: %s' % e)
             return
 
+        the_page = response.read()
         logging.info(the_page) # ugh
         mydata = json.loads(the_page)
         record['dateTime']     = int(mydata["dateTime"])
