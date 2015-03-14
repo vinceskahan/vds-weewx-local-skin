@@ -36,9 +36,8 @@ Configuration
 Add the following to weewx.conf:
 
 [PiMonitor]
-    process = weewxd
     data_binding = pi_binding
-    remote_url = "http://here.example.com/somepage.json"
+    remote_url = http://my.example.com/test.json
 
 [DataBindings]
     [[pi_binding]]
@@ -74,10 +73,7 @@ import logging
 import json
 from urllib2 import Request, urlopen, URLError
 
-#url="http://localhost/t.json"   # should be in config file
-###url="http://r/t.json"   # should be in config file
-
-VERSION = "0.1"
+VERSION = "0.2"
 
 def logmsg(level, msg):
     syslog.syslog(level, 'pi: %s' % msg)
@@ -110,7 +106,7 @@ class PiMonitor(StdService):
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
 	# get the remote_url from weewx.conf, defaulting to a sane default
-	# it seems that this does not work or it doesn't work in __main__ test mode
+	# this does not work
 	#self.remote_url = d.get('remote_url', 'http://localhost/test.json')
 	self.remote_url = d.get('remote_url', 'http://r/t.json')
 
@@ -167,7 +163,6 @@ class PiMonitor(StdService):
     def get_data(self, now_ts, last_ts):
         record = {}
         record['dateTime'] = time.time()     # will supersede later
-        record['usUnits'] = weewx.METRIC
         record['usUnits'] = weewx.US
         record['interval'] = int((now_ts - last_ts) / 60)
 
@@ -209,8 +204,9 @@ if __name__=="__main__":
         'Simulator': {
             'driver': 'weewx.drivers.simulator',
             'mode': 'simulator'},
-        'ComputerMonitor': {
-            'binding': 'pi_binding'},
+        'PiMonitor': {
+            'binding': 'pi_binding',
+            'remote_url': 'http://r/t.json'},
         'DataBindings': {
             'pi_binding': {
                 'database': 'pi_sqlite',
