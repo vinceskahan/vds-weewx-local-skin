@@ -105,10 +105,10 @@ class PiMonitor(StdService):
         self.process = d.get('process', 'weewxd')
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
-        # get the remote_url from weewx.conf, defaulting to a sane default
-        # this does not work
-        #self.remote_url = d.get('remote_url', 'http://localhost/test.json')
-        self.remote_url = d.get('remote_url', 'http://r/t.json')
+	# get the remote_url from weewx.conf, defaulting to a sane default
+	# this does not work
+	#self.remote_url = d.get('remote_url', 'http://localhost/test.json')
+	self.remote_url = d.get('remote_url', 'http://r/t.json')
 
         # get the database parameters we need to function
         binding = d.get('data_binding', 'pi_binding')
@@ -140,7 +140,11 @@ class PiMonitor(StdService):
             logdbg("Skipping record: time difference %s too big" % delta)
             return
         if self.last_ts is not None:
-            self.save_data(self.get_data(now, self.last_ts))
+            try:
+                self.save_data(self.get_data(now, self.last_ts))
+            except:
+                # this is lame, but get_data will log_info if it fails
+                return
         self.last_ts = now
         #-- TBD: make this tunable on/off via variable
         #-- if self.max_age is not None:
@@ -166,14 +170,14 @@ class PiMonitor(StdService):
         record['usUnits'] = weewx.US
         record['interval'] = int((now_ts - last_ts) / 60)
 
-    # handler from docs.python.org/2/howto/urllib2.html
+	# handler from docs.python.org/2/howto/urllib2.html
         try:
             request = Request(self.remote_url)
             response = urlopen(request)
         except URLError as e:
             logerr('pi_info URLError: %s' % e)
             return
-    except Exception as e:
+	except Exception as e:
             logerr('pi_info Exception: %s' % e)
             return
 
