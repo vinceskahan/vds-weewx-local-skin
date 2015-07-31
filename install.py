@@ -9,7 +9,7 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="1.0",
+            version="1.1",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
@@ -44,7 +44,8 @@ class MySkinInstaller(ExtensionInstaller):
             files=[
                  ('bin/user',
                     [
-                        'bin/user/pi.py'
+                        'bin/user/pi.py',
+                        'bin/user/get-pi-temps.py'
                     ]
                  ),
 

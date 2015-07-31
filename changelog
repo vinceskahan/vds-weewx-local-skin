@@ -1,3 +1,5 @@
+1.1 2015-0731
+* add updated get-pi-temps.py code that outputs json
 1.0 2015-0309
 * add code/example/edits to read remote raspi temps
 0.2 2015-0301
