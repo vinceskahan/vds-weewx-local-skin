@@ -1,3 +1,5 @@
+1.2 2015-0804
+* static image rather than security-scary flash link
 1.1 2015-0731
 * add updated get-pi-temps.py code that outputs json
 1.0 2015-0309
