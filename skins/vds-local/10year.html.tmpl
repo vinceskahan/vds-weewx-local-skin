@@ -1,0 +1,84 @@
+#errorCatcher Echo
+##    $Revision: 730 $
+##    $Author: tkeffer $
+##    $Date: 2012-11-03 10:58:13 -0700 (Sat, 03 Nov 2012) $
+#encoding UTF-8
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head profile="http://www.w3.org/2005/10/profile">
+    #if $encoding == 'utf8'
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    #end if    
+    <title>$station.location Ten Year Weather Summary</title>
+    <link rel="stylesheet" type="text/css" href="10year.css"/>
+    <link rel="icon" type="image/png" href="favicon.ico" />
+    <script type="text/javascript">
+      function openURL(urlname)
+      {
+      window.location=urlname;
+      }
+    </script>
+
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="masthead">
+        <h1>$station.location</h1>
+        <h2>Ten Year Weather Summary</h2>
+          <h2>$current.dateTime</h2>
+      </div>
+      <div id="content">
+
+      <div id="navbar">
+<center>
+<!--
+<object width="290" height="300"><param name="movie" value="http://www.wunderground.com/swf/pws_mini_rf.swf?station=KWAFEDER15&freq=2.5&camurl=http%3A%2F%2Ficons.wunderground.com%2Fwebcamramdisk%2Fv%2Fd%2Fvds%2F1%2Fcurrent.jpg&units=english&lang=EN" /><embed src="http://www.wunderground.com/swf/pws_mini_rf.swf?station=KWAFEDER15&camurl=http%3A%2F%2Ficons.wunderground.com%2Fwebcamramdisk%2Fv%2Fd%2Fvds%2F1%2Fcurrent.jpg&freq=2.5&units=english&lang=EN" type="application/x-shockwave-flash" width="290" height="300" /></object>
+-->
+<object width="290" height="300"><img src="webcam.jpg"?></img></object>
+<p>
+</center>
+
+        <input type="button" value="    Current   " onclick="openURL('index.html')" />
+        <input type="button" value="     Week     " onclick="openURL('week.html')" />
+        <input type="button" value="     Month    " onclick="openURL('month.html')" />
+        <input type="button" value="     Year     " onclick="openURL('year.html')" />
+        <input type="button" value="   Forecast   " onclick="openURL('forecast/index.html')" />
+<br>
+        <input type="button" value="    Phone     " onclick="openURL('phone.html')" />
+        <input type="button" value="   Bootstrap  " onclick="openURL('bootstrap/bootstrap-month.html')" />
+        <input type="button" value=" Memory Usage " onclick="openURL('mem/')" />
+        <input type="button" value="    Alltime   " onclick="openURL('alltime.html')" />
+        <input type="button" value="   Ten Year   " onclick="openURL('10year.html')" />
+      </div>
+
+        <div class="header">
+          <h3>Ten Year Statistics and Plots</h3>
+        </div>
+        <div id="plots">
+          <img src="10yearhilow.png" alt="temperatures" />
+          <img src="10yearrain.png" alt="rain" />
+          <img src="10yearwind.png" alt="wind" />
+          <img src="10yearbarometer.png" alt="barometer"/>
+          <img src="10yearhumidity.png" alt="Humidity" />
+	</div>
+      </div> <!-- End id "content" -->
+
+    </div> <!-- End id "container" -->
+
+    ## Include the Google Analytics code if the user has supplied an ID:
+    #if $Extras.has_key('googleAnalyticsId')
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try{
+            var pageTracker = _gat._getTracker("$Extras.googleAnalyticsId");
+            pageTracker._trackPageview();
+        } catch(err) {}
+    </script>
+    #end if
+
+  </body>
+</html>
