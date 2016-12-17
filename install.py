@@ -67,6 +67,8 @@ class MySkinInstaller(ExtensionInstaller):
                     [
                         'skins/vds-local/000-README.txt',
                         'skins/vds-local/favicon.ico',
+                        'skins/vds-local/10year.html.tmpl',
+                        'skins/vds-local/10year.css',
                         'skins/vds-local/index.html.tmpl',
                         'skins/vds-local/iphone-pauland.css',
                         'skins/vds-local/month.html.tmpl',
