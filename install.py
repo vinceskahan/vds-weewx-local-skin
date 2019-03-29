@@ -9,7 +9,7 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="1.2",
+            version="1.3",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
@@ -73,6 +73,7 @@ class MySkinInstaller(ExtensionInstaller):
                         'skins/vds-local/iphone-pauland.css',
                         'skins/vds-local/month.html.tmpl',
                         'skins/vds-local/phone.html.tmpl',
+                        'skins/vds-local/purpleair.html.tmpl',
                         'skins/vds-local/skin.conf',
                         'skins/vds-local/week.html.tmpl',
                         'skins/vds-local/weewx.css',
