@@ -33,9 +33,9 @@
       <div id="masthead">
         <h1>$station.location</h1>
         <h2>PurpleAir Readings</h2>
-        <h2>$latest.dateTime</h2>
-        <h2><a href="https://www.purpleair.com/map?703539%7C703541#11/47.3097/-122.3606">(interactive map)</a></h2>
-       </div>
+          <h2>$latest.dateTime</h2>
+          <h2><a href="https://www.purpleair.com/map?703539%7C703541#11/47.3097/-122.3606">(interactive map)</a></h2>
+      </div>
 
       <div id="stats_group">
 
@@ -50,10 +50,22 @@
                 <td class="stats_label">pm2_5_cf_1</td>
                 <td class="stats_data">$latest('purpleair_binding').pm2_5_cf_1.formatted $unit.label.pm2_5_cf_1</td>
               </tr>
+            <!-- 
+              <tr>
+                <td class="stats_label">pm2_5_cf_1_b</td>
+                <td class="stats_data">$latest('purpleair_binding').pm2_5_cf_1_b.formatted $unit.label.pm2_5_cf_1</td>
+              </tr>
+            -->
               <tr>
                 <td class="stats_label">pm10_0_cf_1</td>
                 <td class="stats_data">$latest('purpleair_binding').pm10_0_cf_1.formatted $unit.label.pm10_0_cf_1</td>
               </tr>
+            <!--
+              <tr>
+                <td class="stats_label">pm10_0_cf_1_b</td>
+                <td class="stats_data">$latest('purpleair_binding').pm10_0_cf_1_b.formatted $unit.label.pm10_0_cf_1</td>
+              </tr>
+            -->
               </tr>
             </tbody>
           </table>
