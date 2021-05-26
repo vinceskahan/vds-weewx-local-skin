@@ -51,7 +51,7 @@
 				<h2>
 					BASEBALL ROOM
 				</h2>
-				$latest($data_binding='pi_binding').extraTemp1.formatted&#176;
+				$latest.extraTemp1.formatted&#176;
 			</a>
 		</div>
 		<div class="thirties">
@@ -60,10 +60,10 @@
 			</h2>
 			<a href="dayBaseball.png">
 				<span class="high">
-					$day($data_binding='pi_binding').extraTemp1.max.formatted&#176;
+					$day.extraTemp1.max.formatted&#176;
 				</span>
 				<span class="time">
-					$day($data_binding='pi_binding').extraTemp1.maxtime.format("%H:%M")
+					$day.extraTemp1.maxtime.format("%H:%M")
 				</span>
 			</a>
 		</div>
@@ -73,10 +73,10 @@
 			</h2>
 			<a href="daytempdew.png">
 				<span class="low">
-					$day($data_binding='pi_binding').extraTemp1.min.formatted&#176;
+					$day.extraTemp1.min.formatted&#176;
 				</span>
 				<span class="time">
-					$day($data_binding='pi_binding').extraTemp1.mintime.format("%H:%M")
+					$day.extraTemp1.mintime.format("%H:%M")
 				</span>
 			</a>
 		</div>
@@ -188,6 +188,34 @@
 				</span>
 			</a>
 		</div>
+
+		<div class="fifties">
+			<h2>
+				AIR QUALITY
+			</h2>
+	        <a href="daypurpleair.png">
+                     $latest('purpleair_binding').aqi2_5.raw
+		     <span class="unit">
+			latest
+		     </span>
+	    	     <span class="time">
+		     </span>
+		</a>
+		</div>
+		<div class="fifties">
+			<h2>
+				AIR QUALITY
+			</h2>
+	        <a href="daypurpleair.png">
+                      $span($data_binding='purpleair_binding',$hour_delta=1).aqi2_5.avg.format("%.1f")
+ 		     <span class="unit">
+			last hour
+		     </span>
+	    	     <span class="time">
+		     </span>
+		</a>
+		</div>
+
 		<div class="fiftylinks">
 			<a href="http://radar.weather.gov/ridge/lite/N0R/ATX_loop.gif">
 					RADAR
@@ -201,4 +229,3 @@
 	</div>
 </body>
 </html>
-

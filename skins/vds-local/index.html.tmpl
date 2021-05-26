@@ -3,9 +3,9 @@
 ##    $Author: tkeffer $
 ##    $Date: 2013-01-01 17:44:05 -0800 (Tue, 01 Jan 2013) $
 #encoding UTF-8
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head profile="http://www.w3.org/2005/10/profile">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+  <head profile="https://www.w3.org/2005/10/profile">
     #if $encoding == 'utf8'
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     #end if    
@@ -29,7 +29,7 @@
     <script src="RGraph/libraries/RGraph.common.core.js" ></script>
     <script src="RGraph/libraries/RGraph.bar.js" ></script>
 
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
   </head>
 
@@ -48,7 +48,8 @@
 
 <center>
 <!-- <object width="290" height="300"><param name="movie" value="http://www.wunderground.com/swf/pws_mini_rf.swf?station=KWAFEDER15&freq=2.5&camurl=http%3A%2F%2Ficons.wunderground.com%2Fwebcamramdisk%2Fv%2Fd%2Fvds%2F1%2Fcurrent.jpg&units=english&lang=EN" /><embed src="http://www.wunderground.com/swf/pws_mini_rf.swf?station=KWAFEDER15&camurl=http%3A%2F%2Ficons.wunderground.com%2Fwebcamramdisk%2Fv%2Fd%2Fvds%2F1%2Fcurrent.jpg&freq=2.5&units=english&lang=EN" type="application/x-shockwave-flash" width="290" height="300" /></object>-->
-<object width="290" height="300"><img src="webcam.jpg"?></img></object>
+<object width="390" height="260"><img width=390 height=260 src="webcam.jpg"?></img></object>
+ 
 <p>
 </center>
 <p>
@@ -65,7 +66,7 @@
               </tr>
               <tr>
                 <td class="stats_label">Baseball Room Temp</td>
-                <td class="stats_data">$latest($data_binding='pi_binding').extraTemp1</td>
+                <td class="stats_data">$latest.extraTemp1</td>
               </tr>
               <tr>
                 <td class="stats_label">Wind Chill</td>
@@ -102,6 +103,13 @@
               <tr>
                 <td class="stats_label">Last Rain</td>
                 <td class="stats_data">$time_since_last_rain</td>
+              </tr>
+              <tr>
+                <td class="stats_label">Historical Records</td>
+                <td class="stats_data">$day.outTemp.historical_max alltime ($day.outTemp.historical_maxtime.format("%Y"))<br>
+                                       $day.outTemp.historical_max_avg ave high<br>
+                                       $day.outTemp.historical_min_avg ave low<br>
+                                       $day.outTemp.historical_min alltime ($day.outTemp.historical_mintime.format("%Y"))</td>
               </tr>
               <tr>
                 <td class="stats_label">Inside Temperature</td>
@@ -338,7 +346,7 @@
           <tr></tr>
             <tr>
               <td class="label">Station type:</td>
-              <td class="data"><a href="https://davisnet.com/weather/products/professional-home-weather-stations.asp"> Davis $station.hardware</a> </td>
+              <td class="data"><a href="http://davisnet.com/weather/products/professional-home-weather-stations.asp"> Davis $station.hardware</a> </td>
             </tr>
             <tr>
               <td class="label">Software version:</td>
@@ -402,7 +410,7 @@
 
 	<script>
 		var barChartData = {
-			labels : ["Rain (in)");
+			labels : ["Rain (in)"],
 			datasets : [
 				{
 				fillColor : "rgba(220,220,220,0.8)",
@@ -419,6 +427,7 @@
         <input type="button" value="     Month    " onclick="openURL('month.html')" />
         <input type="button" value="     Year     " onclick="openURL('year.html')" />
         <input type="button" value="   Forecast   " onclick="openURL('forecast/index.html')" />
+        <input type="button" value="      Air     " onclick="openURL('purpleair.html')" />
 <br>
 <!--
         <input type="button" value="    Forecast  " onclick="openURL('forecast')" /> 
@@ -427,7 +436,8 @@
         <input type="button" value="   Bootstrap  " onclick="openURL('bootstrap/')" />
         <input type="button" value=" Memory Usage " onclick="openURL('mem/')" />
         <input type="button" value="    Alltime   " onclick="openURL('alltime.html')" />
-        <input type="button" value="   Ten Year   " onclick="openURL('10year.html')" />
+        <input type="button" value="    About     " onclick="openURL('about.html')" />
+        <!-- <input type="button" value="   Ten Year   " onclick="openURL('10year.html')" /> -->
         <p>Monthly summary:&nbsp;
         <select NAME=noaaselect onchange="openNoaaFile(value)">
         #for $monthYear in $SummaryByMonth
@@ -555,8 +565,8 @@ var windGust = new Gauge({
 	units : 'Gust',
 	strokeTicks : true,
 	valueFormat : { int: 1, dec: 0 },
-	maxValue : 60,
-	majorTicks : ['0', '10', '20', '30', '40', '50','60'],
+	maxValue : 80,
+	majorTicks : ['0', '10', '20', '30', '40', '50','60','70','80'],
     valueFormat : { int: 1, dec: 0 },
     highlights  : [
         { from : 0, to : $week.wind.min.formatted, color : 'LightSalmon' },
