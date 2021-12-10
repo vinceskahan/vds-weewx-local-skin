@@ -80,7 +80,9 @@ class MySkinInstaller(ExtensionInstaller):
                         'skins/vds-local/gauge.js',
                         'skins/vds-local/alltime.html.tmpl',
                         'skins/vds-local/alltime.css',
-                        'skins/vds-local/current.html.tmpl,,
+                        'skins/vds-local/current.html.tmpl',
+                        'skins/vds-local/about.html.tmpl',
+                        'skins/vds-local/purpleair.html.tmpl',
                     ],
                  ),
 
