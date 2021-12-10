@@ -71,7 +71,8 @@ from weewx.engine import StdService
 
 import logging
 import json
-from urllib2 import Request, urlopen, URLError
+from urllib.request import Request, urlopen
+from urllib.error import URLError
 
 VERSION = "0.2"
 
@@ -105,10 +106,12 @@ class PiMonitor(StdService):
         self.process = d.get('process', 'weewxd')
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
-	# get the remote_url from weewx.conf, defaulting to a sane default
-	# this does not work
-	#self.remote_url = d.get('remote_url', 'http://localhost/test.json')
-	self.remote_url = d.get('remote_url', 'http://r/t.json')
+        # get the remote_url from weewx.conf, defaulting to a sane default
+        # this does not work
+        #self.remote_url = d.get('remote_url', 'http://localhost/test.json')
+        #self.remote_url = d.get('remote_url', 'http://r/t.json')
+        #self.remote_url = d.get('remote_url', 'http://192.168.1.20/pi.json')
+        self.remote_url = d.get('remote_url', 'http://192.168.1.196/pi.json')
 
         # get the database parameters we need to function
         binding = d.get('data_binding', 'pi_binding')
@@ -118,7 +121,7 @@ class PiMonitor(StdService):
         # be sure database matches the schema we have
         dbcol = self.dbm.connection.columnsOf(self.dbm.table_name)
         dbm_dict = weewx.manager.get_manager_dict(
-            config_dict['DataBindings'], config_dict['Databases'], binding)
+           config_dict['DataBindings'], config_dict['Databases'], binding)
         picol = [x[0] for x in dbm_dict['schema']]
         if dbcol != picol:
             raise Exception('pi schema mismatch: %s != %s' % (dbcol, picol))
@@ -161,7 +164,7 @@ class PiMonitor(StdService):
         try:
             # sqlite databases need some help to stay small
             self.dbm.getSql('vacuum')
-        except Exception, e:
+        except Exception as e:
             pass
 
     def get_data(self, now_ts, last_ts):
@@ -170,14 +173,14 @@ class PiMonitor(StdService):
         record['usUnits'] = weewx.US
         record['interval'] = int((now_ts - last_ts) / 60)
 
-	# handler from docs.python.org/2/howto/urllib2.html
+    # handler from docs.python.org/2/howto/urllib2.html
         try:
             request = Request(self.remote_url)
             response = urlopen(request)
         except URLError as e:
             logerr('pi_info URLError: %s' % e)
             return
-	except Exception as e:
+        except Exception as e:
             logerr('pi_info Exception: %s' % e)
             return
 
@@ -233,19 +236,19 @@ if __name__=="__main__":
     now_ts=time.time()
 
     record = svc.get_data(now_ts,last_ts)
-    print record
+    print(record)
 
     time.sleep(5)
     last_ts=now_ts
     now_ts=time.time()
 
     record = svc.get_data(now_ts,last_ts)
-    print record
+    print(record)
 
     time.sleep(5)
     last_ts=now_ts
     now_ts=time.time()
     record = svc.get_data(now_ts,last_ts)
-    print record
+    print(record)
 
     os.remove('/tmp/pi.sdb')
