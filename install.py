@@ -9,32 +9,12 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="1.3",
+            version="2.0",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
             author_email="vinceskahan@gmail.com",
-            archive_services='user.pi.PiMonitor',
             config={
-                'PiMonitor': {
-                    'data_binding': 'pi_binding',
-                    'remote_url': 'http://my.example.com/test.json'
-                },
-                'DataBindings': {
-                    'pi_binding': {
-                        'manager': 'weewx.manager.DaySummaryManager',
-                        'schema' : 'user.pi.schema',
-                        'table_name': 'archive',
-                        'database' : 'pi_sqlite',
-                    }
-                },
-                'Databases': {
-                    'pi_sqlite': {
-                        'root': '/home/weewx/',
-                        'database_name' : 'archive/pi.sdb',
-                        'driver': 'weedb.sqlite'
-                    }
-                },
                 'StdReport': {
                     'vds-local': {
                         'skin': 'vds-local',
@@ -42,12 +22,6 @@ class MySkinInstaller(ExtensionInstaller):
                 }
             },
             files=[
-                 ('bin/user',
-                    [
-                        'bin/user/pi.py',
-                        'bin/user/get-pi-temps.py'
-                    ]
-                 ),
 
                  ('bin/user/vds-local-skin/docs',
                     [
