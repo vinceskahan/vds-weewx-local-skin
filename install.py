@@ -9,7 +9,7 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="2.0",
+            version="2.1",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
@@ -23,17 +23,17 @@ class MySkinInstaller(ExtensionInstaller):
             },
             files=[
 
-                 ('bin/user/vds-local-skin/docs',
+                 ('skins/vds-local-skin/docs',
                     [
-                        'bin/user/vds-local-skin/docs/README.txt',
-                        'bin/user/vds-local-skin/docs/convert-json-to-sqlite3.py'
+                        'skins/vds-local/docs/README.txt',
+                        'skins/vds-local/docs/convert-json-to-sqlite3.py'
                     ]
                  ),
 
-                 ('bin/user/vds-local-skin/pi',
+                 ('skins/vds-local-skin/docs/pi',
                     [
-                        'bin/user/vds-local-skin/pi/README.txt',
-                        'bin/user/vds-local-skin/pi/get-pi-temps.py'
+                        'skins/vds-local/docs/pi/README.txt',
+                        'skins/vds-local/docs/pi/get-pi-temps.py'
                     ]
                  ),
 
