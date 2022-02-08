@@ -1,5 +1,15 @@
 
 # installer for the vds-local extension
+#
+# note - the 'docs' tree in the sources contains info
+#        for how to get the external pi ds18b20 sensors
+#        to publish to MQTT.  This tree is not installed
+#        onto the runtime weewx system via this installer.
+#
+#        The bin/user/pi.py extension 'is' no longer installed
+#        since we now use MQTTsubscribe to feed the extra
+#        sensor readings into weewx.
+#
 
 from setup import ExtensionInstaller
 
@@ -9,7 +19,7 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="2.1",
+            version="2.2",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
@@ -22,20 +32,6 @@ class MySkinInstaller(ExtensionInstaller):
                 }
             },
             files=[
-
-                 ('skins/vds-local-skin/docs',
-                    [
-                        'skins/vds-local/docs/README.txt',
-                        'skins/vds-local/docs/convert-json-to-sqlite3.py'
-                    ]
-                 ),
-
-                 ('skins/vds-local-skin/docs/pi',
-                    [
-                        'skins/vds-local/docs/pi/README.txt',
-                        'skins/vds-local/docs/pi/get-pi-temps.py'
-                    ]
-                 ),
 
                  ('skins/vds-local',
                     [

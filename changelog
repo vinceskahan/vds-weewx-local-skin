@@ -1,3 +1,10 @@
+2.2 2022-0208
+* more cleanup
+2.1 2022-0207
+* cleanup installer and source tree
+2.0 2021-1220
+* overlay rain onto image
+* use MQTTsubscribe for extraTemp1+2 rather than custom extension
 1.2 2015-0804
 * static image rather than security-scary flash link
 1.1 2015-0731
