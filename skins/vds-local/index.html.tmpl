@@ -25,11 +25,9 @@
         window.location=url;
       }
     </script>
-    <script src="gauge.js"></script>
-    <script src="RGraph/libraries/RGraph.common.core.js" ></script>
-    <script src="RGraph/libraries/RGraph.bar.js" ></script>
 
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- ref: https://canvas-gauges.com/documentation/user-guide/ -->
+    <script src="gauge.min.js"></script>
 
   </head>
 
@@ -384,46 +382,161 @@
 
       <div id="navbar">
 
-	<canvas id="outTemp"></canvas>
-	<canvas id="outHumidity"></canvas>
-	<canvas id="windGust"></canvas> 
-      
-   <!-- rain -->
-    <canvas id="rainBar" width="120" height="200">[No canvas support]</canvas>
-    <script>
-	window.onload = function()
-	{
-	 var rainTotal = $day.rain.sum.formatted
-	 // uncomment to play around with autoscaling
-	 // var rainTotal = 1.23
-	 if (rainTotal < 0.1) { rainYMAX = 0.25 } 
-	 else if (rainTotal < 0.5) { rainYMAX = 1 } 
-	 else if (rainTotal < 1.0) { rainYMAX = 1.5 } 
-	 else if (rainTotal < 1.5) { rainYMAX = 2 } 
-	 else if (rainTotal < 2.0) { rainYMAX = 3 } 
-	 else { rainYMAX = 5 } 
-         var bar = new RGraph.Bar('rainBar', [rainTotal])
-                .Set('ymax', rainYMAX)
-		.Set('colors',['darksalmon'])
-		.Set('scale.decimals', 2)
-		.Set('gutter.left', 35)
-		.Set('labels',['rain (in)'])
-                .Draw();
-        }
-    </script>
+<!-- temperature -->
+<canvas id="outTempCanvasGauge"></canvas>
+<script>
+    // these will come from weewx eventually
+    //var outTemp = 70.2
+    //var alltimeMin = 13.0
+    //var alltimeMax = 105.9
+    //var weekMin = 56.3
+    //var weekMax = 91.5
 
-	<script>
-		var barChartData = {
-			labels : ["Rain (in)"],
-			datasets : [
-				{
-				fillColor : "rgba(220,220,220,0.8)",
-				strokeColor : "rgba(220,220,220,1)",
-				},
-			]
-		}
-	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
-	</script>
+    var outTemp    = $current.outTemp.formatted
+    var weekMin    = $week.outTemp.min.formatted
+    var weekMax    = $week.outTemp.max.formatted
+    var alltimeMax = $alltime.outTemp.max.formatted
+    var alltimeMin = $alltime.outTemp.min.formatted
+
+    var outTempGauge = new RadialGauge({
+        renderTo: outTempCanvasGauge,
+        width: 200,
+        height: 200,
+        units: "Temperature",
+        title: false,
+        minValue: 0,
+        maxValue: 120,
+        minorTicks: 10,
+        majorTicks: [ '0','20','40','60','80','100','120'],
+        strokeTicks: false,
+        highlights: [
+            { "from": alltimeMin, "to": weekMin,    "color": "lightsalmon"  },
+            { "from": weekMax,    "to": alltimeMax, "color": "lightsalmon"  }
+        ],
+        valueBox: true,
+        valueDec: 1,
+        valueInt: 2,
+        value: outTemp,
+    });
+    outTempGauge.draw();
+</script>
+
+<!-- humidity -->
+<canvas id="humidityCanvasGauge"></canvas>
+<script>
+    // these will come from weewx eventually
+    //var outHumidity = 55
+    //var alltimeMin = 15.0
+    //var alltimeMax = 100.9
+    //var weekMin = 36.3
+    //var weekMax = 90.5
+
+    var outHumidity = $current.outHumidity.formatted
+    var weekMin     = $week.outHumidity.min.formatted
+    var weekMax     = $week.outHumidity.max.formatted
+    var alltimeMax  = $alltime.outHumidity.max.formatted
+    var alltimeMin  = $alltime.outHumidity.min.formatted
+
+    var humidityGauge = new RadialGauge({
+        renderTo: humidityCanvasGauge,
+        width: 200,
+        height: 200,
+        units: "Humidity",
+        title: false,
+        minValue: 0,
+        maxValue: 100,
+        minorTicks: 10,
+        majorTicks: [ '0','20','40','60','80','100'],
+        strokeTicks: false,
+        highlights: [
+            { "from": alltimeMin, "to": weekMin,    "color": "lightsalmon"  },
+            { "from": weekMax,    "to": alltimeMax, "color": "lightsalmon"  }
+        ],
+        valueBox: true,
+        valueDec: 0,
+        valueInt: 2,
+        value: outHumidity,
+    });
+    humidityGauge.draw();
+</script>
+
+<!-- wind -->
+<canvas id="windGustCanvasGauge"></canvas>
+<script>
+    // these will come from weewx eventually
+    //var windSpeed = 15
+    //var alltimeMin = 0.0
+    //var alltimeMax = 76.2
+    //var weekMin = 0.0
+    //var weekMax = 16.5
+
+    var windSpeed  = $current.windSpeed.formatted
+    var weekMin    = $week.wind.min.formatted
+    var weekMax    = $week.wind.max.formatted
+    var alltimeMax = $alltime.wind.max.formatted
+    var alltimeMin = $alltime.wind.min.formatted
+
+    var windGustGauge = new RadialGauge({
+        renderTo: windGustCanvasGauge,
+        width: 200,
+        height: 200,
+        units: "MPH",
+        title: false,
+        minValue: 0,
+        maxValue: 100,
+        minorTicks: 10,
+        majorTicks: [ '0','20','40','60','80','100'],
+        strokeTicks: false,
+        highlights: [
+            { "from": alltimeMin, "to": weekMin,    "color": "lightsalmon"  },
+            { "from": weekMax,    "to": alltimeMax, "color": "lightsalmon"  }
+        ],
+        valueBox: true,
+        valueDec: 0,
+        valueInt: 1,
+        value: windSpeed,
+    });
+    windGustGauge.draw();
+</script>
+ 
+   <!-- rain -->
+<canvas id="rainTotalCanvasGauge"></canvas>
+<script>
+
+    // these will come from weewx eventually
+    // var rainValue = 0.17
+    var rainValue = $day.rain.sum.formatted
+
+    // change scale based on value for readability
+    if (rainValue < 100) { maxValue = 15; minorTicks =  4; majorTicks = [ '0','5','10','15' ] };
+    if (rainValue < 5)   { maxValue = 5;  minorTicks =  5; majorTicks = [ '0','1','2','3','4','5' ]            };
+    if (rainValue < 3)   { maxValue = 3;  minorTicks = 10; majorTicks = [ '0','0.5','1','1.5','2','2.5','3' ]  };
+    if (rainValue < 1)   { maxValue = 1;  minorTicks = 10; majorTicks = [ '0','0.2','0.4','0.6','0.8','1.00' ] };
+
+    var rainTotalGauge = new LinearGauge({
+        value: rainValue,
+        renderTo: rainTotalCanvasGauge,
+        width: 100,
+        height: 200,
+        borders: true,
+        strokeTicks: true,
+        barBeginCircle: false,
+        borderShadowWidth: "0",
+        units: "inches",
+        valueDec: 2,
+        valueInt: 1,
+        minValue: 0,
+        maxValue: maxValue,
+        valueBox: 1,
+        colorBarProgress: "lightsalmon",
+        colorBar: "white",
+        minorTicks: minorTicks,
+        majorTicks: majorTicks,
+
+    });
+    rainTotalGauge.draw();
+</script>
+
 <p>
 
         <input type="button" value="    Current   " onclick="openURL('index.html')" />
@@ -519,71 +632,6 @@ body{padding:0;margin:0;background:LightGrey;}
 </head>
 
 	</div>
-
-<!--- end of gauges script -->
-<script>
-
-var outTemp = new Gauge({
-	renderTo  : 'outTemp',
-	width     : 200,
-	height    : 200,
-	glow      : false,
-	units     : 'Temperature',
-	strokeTicks : true,
-    minValue    : -20,
-    maxValue    : 120,
-    majorTicks  : ['-20','0','20','40','60','80','100','120'],
-    minorTicks  : 10,
-    strokeTicks : false,
-    valueFormat : { int: 1, dec: 1 },
-    highlights  : [
-        { from : $alltime.outTemp.min.formatted, to : $week.outTemp.min.formatted, color : 'LightSalmon' },
-        { from : $week.outTemp.max.formatted, to : $alltime.outTemp.max.formatted, color : 'LightSalmon' }
-    ],
-});
-outTemp.onready = function() { setInterval( function() { outTemp.setValue( $current.outTemp.formatted ); }, 100 ); };
-outTemp.draw();
-
-var outHumidity = new Gauge({
-	renderTo  : 'outHumidity',
-	width     : 200,
-	height    : 200,
-	glow      : false,
-	units     : 'Humidity',
-	strokeTicks : true,
-	majorTicks : ['0', '20', '40', '60', '80', '100'],
-    valueFormat : { int: 1, dec: 0 },
-    highlights  : [
-        { from : $alltime.outHumidity.min.formatted, to : $week.outHumidity.min.formatted, color : 'LightSalmon' },
-        { from : $week.outHumidity.max.formatted, to : $alltime.outHumidity.max.formatted, color : 'LightSalmon' }
-    ],
-});
-outHumidity.onready = function() { setInterval( function() { outHumidity.setValue( $current.outHumidity.formatted ); }, 100 ); };
-outHumidity.draw();
-
-var windGust = new Gauge({
-	renderTo  : 'windGust',
-	width     : 200,
-	height    : 200,
-	glow      : false,
-	units : 'Gust',
-	strokeTicks : true,
-	valueFormat : { int: 1, dec: 0 },
-	maxValue : 80,
-	majorTicks : ['0', '10', '20', '30', '40', '50','60','70','80'],
-    valueFormat : { int: 1, dec: 0 },
-    highlights  : [
-        { from : 0, to : $week.wind.min.formatted, color : 'LightSalmon' },
-        { from : $week.wind.max.formatted, to : $alltime.wind.max.formatted, color : 'LightSalmon' }
-    ],
-});
-windGust.onready = function() { windGust.setValue( $current.windSpeed.formatted ); };
-windGust.draw();
-
-
-</script>
-
-<!--- end of gauges script -->
 
 </body>
 </html>

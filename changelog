@@ -1,3 +1,5 @@
+2.4 2022-0827
+* use current gauge.min.js, no old gauge.js or RGraph.js any more
 2.3 2022-0824
 * general cleanup, change 'pond' to 'ecowitt'
 2.2 2022-0208
