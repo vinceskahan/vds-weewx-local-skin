@@ -151,6 +151,10 @@
                 <td class="stats_label">ISS Battery (0 = ok)</td>
                 <td class="stats_data">$current.txBatteryStatus</td>
               </tr>
+<!--
+              ## add total daylight information
+              #include "standard_celestial.inc"
+-->
             </tbody>
           </table>
         </div>
@@ -352,27 +356,29 @@
             </tr>
             <tr>
               <td class="label">Software version:</td>
-              <td class="data"><a href="http://www.weewx.com">'weewx'</a> v$station.version</td>
+              <td class="data"><a href="https://www.weewx.com">'weewx'</a> v$station.version</td>
             </tr>
             <tr>
               <td class="label">Weewx uptime:</td>
-              <td class="data">$station.uptime.long_form</td>
+              <td class="data">$station.uptime</td>
             </tr>
             <tr>
               <td class="label">Server uptime:</td>
-              <td class="data">$station.os_uptime.long_form</td>
+              <td class="data">$station.os_uptime</td>
             </tr>
 <!-- we don't run this now
             <tr>
               <td class="label">Performance Graphs</td>
               <td class="data"><a href="/weewx/cmon">here</a></td>
             </tr>
--->
           <tr>
              <td class="label">Timelapse Movies</td>
              <td class="data"><a href="/timelapse">here</a></td>
           </tr>
+-->
+
         </table>
+         #include "myuploads.inc"
 
         </div> <!-- End id "about" -->
 
@@ -581,9 +587,7 @@
           <img src="dayrain.png"      alt="rain" />
           <img src="daywind.png"      alt="wind" />
           <img src="daybarometer.png" alt="barometer"/>
-          <img src="daywinddir.png"   alt="Hi Wind" />
           <img src="dayinside.png"    alt="Inside" />
-          <img src="daywindvec.png"   alt="Wind Vector" />
           <img src="dayhumidity.png"   alt="Humidity" />
           #if $day.radiation.has_data
           <img src="dayradiation.png" alt="Radiation" />
@@ -603,6 +607,9 @@
 <!-- not updated to v3
           <img src="dayLoad.png"      alt="Load" />
 -->
+          <img src="daywindvec.png"   alt="Wind Vector" />
+          <img src="daywinddir.png"   alt="Hi Wind" />
+          <img src="daywindrose.png"   alt="Wind Rose" />
         </div> <!-- End id "plots" -->
 
       </div> <!--End class "stats_group" -->

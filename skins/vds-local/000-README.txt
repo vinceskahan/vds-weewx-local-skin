@@ -17,3 +17,6 @@ weewx.css = css used above
 
 phone.html.tmpl = phone formatted
 iphone-pauland.css = css used by phone.html
+
+
+note: index.html.tmpl needs Gary Roderick's weewx-stackedwindrose skin activated
