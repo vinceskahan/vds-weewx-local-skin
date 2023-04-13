@@ -19,7 +19,7 @@ def loader():
 class MySkinInstaller(ExtensionInstaller):
     def __init__(self):
         super(MySkinInstaller, self).__init__(
-            version="2.4",
+            version="2.5",
             name='vds-local',
             description='vds local skin',
             author="Vince Skahan",
